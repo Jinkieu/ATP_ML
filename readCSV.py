@@ -4,6 +4,9 @@ import datetime
 import numpy as np
 
 
+filename = 'ATP.csv'
+
+
 def convert_date(data):
     d = str(data)
     year = int(d[0:4])
@@ -17,7 +20,7 @@ def convert_date(data):
     return parsed_date
 
 
-def parse_csv(filename):
+def parse_csv():
     d = pd.read_csv(filename)
     df = pd.DataFrame(data=d)
     df['date'] = df.apply(
@@ -27,9 +30,8 @@ def parse_csv(filename):
 
 
 # clean Nan values
-def clean_df(filename):
-    df = parse_csv(filename)
-    print(df.columns.values)
+def clean_df():
+    df = parse_csv()
     df = df[['loser_age', 'loser_hand', 'loser_ht', 'loser_id', 'loser_name', 'loser_rank',
              'surface', 'date', 'tourney_level', 'tourney_name',
              'winner_age', 'winner_hand', 'winner_ht', 'winner_id', 'winner_name', 'winner_rank'
@@ -39,10 +41,10 @@ def clean_df(filename):
                                'winner_age', 'winner_hand', 'winner_ht', 'winner_id', 'winner_name', 'winner_rank'
                                ])
     # dummies: entry, hand, name, surface, date, level, tourney name
+    new_df.index = range(len(new_df))
     return new_df
 
 
-clean_df('ATP.csv')
-
-
-
+def final_df():
+    df = clean_df()
+    return df
