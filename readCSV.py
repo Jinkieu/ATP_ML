@@ -26,5 +26,23 @@ def parse_csv(filename):
     return df
 
 
+# clean Nan values
+def clean_df(filename):
+    df = parse_csv(filename)
+    print(df.columns.values)
+    df = df[['loser_age', 'loser_hand', 'loser_ht', 'loser_id', 'loser_name', 'loser_rank',
+             'surface', 'date', 'tourney_level', 'tourney_name',
+             'winner_age', 'winner_hand', 'winner_ht', 'winner_id', 'winner_name', 'winner_rank'
+             ]]
+    new_df = df.dropna(subset=['date', 'surface', 'tourney_level', 'tourney_name',
+                               'loser_age', 'loser_hand', 'loser_ht', 'loser_id', 'loser_name', 'loser_rank',
+                               'winner_age', 'winner_hand', 'winner_ht', 'winner_id', 'winner_name', 'winner_rank'
+                               ])
+    # dummies: entry, hand, name, surface, date, level, tourney name
+    return new_df
+
+
+clean_df('ATP.csv')
+
 
 
